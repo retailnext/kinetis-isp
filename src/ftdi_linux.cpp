@@ -35,6 +35,10 @@ void FTDILinux::open(const int vid, const int pid){
     throw std::runtime_error("Could not create new FTDI instance");
   }
 
+  /* Set the detach mode to auto reatach to avoid having to unplug and replug the USB cable */
+  ftdi->module_detach_mode = AUTO_DETACH_REATACH_SIO_MODULE;
+
+
   /* Open FTDILinux device based on FT232R vendor & product IDs */
   if(ftdi_usb_open(ftdi, vid, pid) < 0) {
     ftdi_free(ftdi);
