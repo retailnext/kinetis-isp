@@ -35,6 +35,7 @@ namespace FTDI{
 
     virtual int writeData(std::vector<uint8_t> data) = 0;
     virtual std::vector<uint8_t> readData() = 0;
+    virtual void purgeRxTx() = 0;
 };
 }
 
