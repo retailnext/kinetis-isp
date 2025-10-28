@@ -58,6 +58,10 @@ void Application::enableISPMode(){
   ftdi.disableCBUSMode();
   usleep(10000);
 
+  // Purge any residual data in the buffer
+  ftdi.purgeRxTx();
+  usleep(5000);
+
   const std::vector<uint8_t> unlock_key={0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88};
   BOOST_LOG_TRIVIAL(info) <<  "Send \"Enable ISP Mode\" request to device";
   auto ret = mcu.enableISPMode(unlock_key);

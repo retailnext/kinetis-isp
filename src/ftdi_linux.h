@@ -29,6 +29,7 @@ public:
 
   int writeData(std::vector<uint8_t> data);
   std::vector<uint8_t> readData();
+  void purgeRxTx();
 
 private:
   struct ftdi_context * ftdi = nullptr;
