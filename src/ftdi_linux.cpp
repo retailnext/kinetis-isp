@@ -13,6 +13,7 @@
 #include <memory.h>
 #include <array>
 #include <iostream>
+#include <cstdint>
 
 FTDILinux::FTDILinux(){
 

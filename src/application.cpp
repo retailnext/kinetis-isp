@@ -12,6 +12,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <stdexcept>
+#include <cstdint>
 #include <boost/log/trivial.hpp>
 
 Application::Application(MCU& mcu, FTDI::Interface& ftdi) : mcu(mcu), ftdi(ftdi)

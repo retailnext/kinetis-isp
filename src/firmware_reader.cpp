@@ -9,6 +9,7 @@
 #include "firmware_reader.h"
 
 #include <iterator>
+#include <cstdint>
 
 FirmwareReader::FirmwareReader(std::istream& _is) : is(_is)
 {

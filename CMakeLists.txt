@@ -5,7 +5,10 @@
 # SPDX-License-Identifier: BSD-2-Clause-Patent
 
 cmake_minimum_required(VERSION 3.20)
-cmake_policy(SET CMP0167 NEW)
+# Set CMP0167 policy only if it exists (CMake 3.30+)
+if(POLICY CMP0167)
+    cmake_policy(SET CMP0167 NEW)
+endif()
 
 project(nxp-isp)
 
