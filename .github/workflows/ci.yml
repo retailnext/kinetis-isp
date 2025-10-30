@@ -55,6 +55,10 @@ jobs:
         name: debian-12-build
         path: build/
         
+    - name: Fix permissions on executables
+      run: |
+        chmod +x build/utests build/nxp-isp
+        
     - name: Run tests
       run: |
         cd build
@@ -103,6 +107,10 @@ jobs:
       with:
         name: opensuse-tumbleweed-build
         path: build/
+        
+    - name: Fix permissions on executables
+      run: |
+        chmod +x build/utests build/nxp-isp
         
     - name: Run tests
       run: |
