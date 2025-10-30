@@ -11,35 +11,10 @@ on:
     branches: [ master ]
 
 jobs:
-  # Note: Debian 9 is EOL and has GLIBC compatibility issues with modern GitHub Actions
-  # Consider removing this job or using debian:10 as the minimum supported version
-  debian-9:
+  debian-12:
     runs-on: ubuntu-latest
     container:
-      image: debian:9
-    steps:
-    - name: Install git (required for checkout)
-      run: |
-        apt-get update -qq && apt-get install -y git
-        
-    - name: Checkout code
-      uses: actions/checkout@v3
-      
-    - name: Install dependencies
-      run: |
-        apt-get update -qq && apt-get install -y cmake ninja-build g++ libftdi1-dev libboost-dev libboost-program-options-dev libboost-log-dev
-        
-    - name: Build
-      run: |
-        mkdir -p build
-        cd build
-        cmake -GNinja -DCOVERAGE=ON ..
-        ninja
-
-  debian-10:
-    runs-on: ubuntu-latest
-    container:
-      image: debian:10
+      image: debian:12
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -58,14 +33,14 @@ jobs:
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: debian-10-build
+        name: debian-12-build
         path: build/
 
-  unit-test-debian-10:
+  unit-test-debian-12:
     runs-on: ubuntu-latest
     container:
-      image: debian:10
-    needs: debian-10
+      image: debian:12
+    needs: debian-12
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -77,7 +52,7 @@ jobs:
     - name: Download build artifacts
       uses: actions/download-artifact@v4
       with:
-        name: debian-10-build
+        name: debian-12-build
         path: build/
         
     - name: Run tests
