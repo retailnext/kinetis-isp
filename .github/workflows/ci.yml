@@ -11,13 +11,19 @@ on:
     branches: [ master ]
 
 jobs:
+  # Note: Debian 9 is EOL and has GLIBC compatibility issues with modern GitHub Actions
+  # Consider removing this job or using debian:10 as the minimum supported version
   debian-9:
     runs-on: ubuntu-latest
     container:
       image: debian:9
     steps:
+    - name: Install git (required for checkout)
+      run: |
+        apt-get update -qq && apt-get install -y git
+        
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
       
     - name: Install dependencies
       run: |
