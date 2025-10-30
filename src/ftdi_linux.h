@@ -14,6 +14,7 @@
 #include <libftdi1/ftdi.h> // libftdi header
 #include <memory>
 #include <vector>
+#include <cstdint>
 
 class FTDILinux : public FTDI::Interface {
 public:
