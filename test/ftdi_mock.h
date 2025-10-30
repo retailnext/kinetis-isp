@@ -22,6 +22,7 @@ public:
 
   MOCK_METHOD1(writeData, int(std::vector<uint8_t> data));
   MOCK_METHOD0(readData, std::vector<uint8_t>());
+  MOCK_METHOD0(purgeRxTx, void());
 };
 
 #endif /* _FTDI_MOCK_H_ */

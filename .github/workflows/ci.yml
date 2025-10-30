@@ -21,7 +21,7 @@ jobs:
       
     - name: Install dependencies
       run: |
-        apt-get update -qq && apt-get install -y cmake ninja-build g++ libgtest-dev libgmock-dev libftdi1-dev libboost-dev libboost-program-options-dev libboost-log-dev
+        apt-get update -qq && apt-get install -y cmake ninja-build g++ pkg-config libgtest-dev libgmock-dev libftdi1-dev libboost-dev libboost-program-options-dev libboost-log-dev
         
     - name: Build
       run: |
@@ -47,7 +47,7 @@ jobs:
       
     - name: Install dependencies
       run: |
-        apt-get update -qq && apt-get install -y cmake ninja-build g++ libgtest-dev libgmock-dev libftdi1-dev libboost-dev libboost-program-options-dev libboost-log-dev
+        apt-get update -qq && apt-get install -y cmake ninja-build g++ pkg-config libgtest-dev libgmock-dev libftdi1-dev libboost-dev libboost-program-options-dev libboost-log-dev
         
     - name: Download build artifacts
       uses: actions/download-artifact@v4
@@ -70,7 +70,7 @@ jobs:
       
     - name: Install dependencies
       run: |
-        zypper refresh && zypper install --no-confirm boost-devel ninja cmake gcc-c++ gmock gtest libftdi1-devel libboost_program_options-devel libboost_log-devel libboost_thread-devel
+        zypper refresh && zypper install --no-confirm boost-devel ninja cmake gcc-c++ pkg-config gmock gtest libftdi1-devel libboost_program_options-devel libboost_log-devel libboost_thread-devel
         
     - name: Build
       run: |
@@ -96,7 +96,7 @@ jobs:
       
     - name: Install dependencies
       run: |
-        zypper refresh && zypper install --no-confirm boost-devel ninja cmake gcc-c++ gmock gtest libftdi1-devel libboost_program_options-devel libboost_log-devel libboost_thread-devel
+        zypper refresh && zypper install --no-confirm boost-devel ninja cmake gcc-c++ pkg-config gmock gtest libftdi1-devel libboost_program_options-devel libboost_log-devel libboost_thread-devel
         
     - name: Download build artifacts
       uses: actions/download-artifact@v4
