@@ -14,7 +14,7 @@ jobs:
   debian-12:
     runs-on: ubuntu-latest
     container:
-      image: debian:12
+      image: debian:13
     steps:
     - name: Checkout code
       uses: actions/checkout@v5
@@ -39,7 +39,7 @@ jobs:
   unit-test-debian-12:
     runs-on: ubuntu-latest
     container:
-      image: debian:12
+      image: debian:13
     needs: debian-12
     steps:
     - name: Checkout code
