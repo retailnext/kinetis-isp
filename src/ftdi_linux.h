@@ -14,6 +14,7 @@
 #include <libftdi1/ftdi.h> // libftdi header
 #include <memory>
 #include <vector>
+#include <cstdint>
 
 class FTDILinux : public FTDI::Interface {
 public:
@@ -29,6 +30,7 @@ public:
 
   int writeData(std::vector<uint8_t> data);
   std::vector<uint8_t> readData();
+  void purgeRxTx();
 
 private:
   struct ftdi_context * ftdi = nullptr;

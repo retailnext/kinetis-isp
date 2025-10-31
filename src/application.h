@@ -13,6 +13,7 @@
 #include "ftdi.hpp"
 
 #include <string>
+#include <cstdint>
 
 class Application
 {

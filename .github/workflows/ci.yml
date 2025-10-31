@@ -1,0 +1,118 @@
+# SPDX-FileCopyrightText: 2020 Albert Krenz
+#
+# SPDX-License-Identifier: CC-BY-4.0
+
+name: CI
+
+# Run on pull requests and pushes to master
+on:
+  pull_request:
+  push:
+    branches: [ master ]
+
+jobs:
+  debian-12:
+    runs-on: ubuntu-latest
+    container:
+      image: debian:12
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v5
+      
+    - name: Install dependencies
+      run: |
+        apt-get update -qq && apt-get install -y cmake ninja-build g++ pkg-config libgtest-dev libgmock-dev libftdi1-dev libboost-dev libboost-program-options-dev libboost-log-dev
+        
+    - name: Build
+      run: |
+        mkdir -p build
+        cd build
+        cmake -GNinja -DCOVERAGE=ON -DBUILD_TESTING=ON ..
+        ninja
+        
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v5
+      with:
+        name: debian-12-build
+        path: build/
+
+  unit-test-debian-12:
+    runs-on: ubuntu-latest
+    container:
+      image: debian:12
+    needs: debian-12
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v5
+      
+    - name: Install dependencies
+      run: |
+        apt-get update -qq && apt-get install -y cmake ninja-build g++ pkg-config libgtest-dev libgmock-dev libftdi1-dev libboost-dev libboost-program-options-dev libboost-log-dev
+        
+    - name: Download build artifacts
+      uses: actions/download-artifact@v5
+      with:
+        name: debian-12-build
+        path: build/
+        
+    - name: Fix permissions on executables
+      run: |
+        chmod +x build/utests build/nxp-isp
+        
+    - name: Run tests
+      run: |
+        cd build
+        ctest --output-on-failure
+
+  opensuse-tumbleweed:
+    runs-on: ubuntu-latest
+    container:
+      image: opensuse/tumbleweed
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v5
+      
+    - name: Install dependencies
+      run: |
+        zypper refresh && zypper install --no-confirm boost-devel ninja cmake gcc-c++ pkg-config gmock gtest libftdi1-devel libboost_program_options-devel libboost_log-devel libboost_thread-devel
+        
+    - name: Build
+      run: |
+        mkdir -p build
+        cd build
+        cmake -GNinja -DCOVERAGE=ON -DBUILD_TESTING=ON ..
+        ninja
+        
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v5
+      with:
+        name: opensuse-tumbleweed-build
+        path: build/
+
+  unit-test-opensuse-tumbleweed:
+    runs-on: ubuntu-latest
+    container:
+      image: opensuse/tumbleweed
+    needs: opensuse-tumbleweed
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v5
+      
+    - name: Install dependencies
+      run: |
+        zypper refresh && zypper install --no-confirm boost-devel ninja cmake gcc-c++ pkg-config gmock gtest libftdi1-devel libboost_program_options-devel libboost_log-devel libboost_thread-devel
+        
+    - name: Download build artifacts
+      uses: actions/download-artifact@v5
+      with:
+        name: opensuse-tumbleweed-build
+        path: build/
+        
+    - name: Fix permissions on executables
+      run: |
+        chmod +x build/utests build/nxp-isp
+        
+    - name: Run tests
+      run: |
+        cd build
+        ctest --output-on-failure

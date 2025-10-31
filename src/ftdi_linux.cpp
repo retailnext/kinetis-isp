@@ -13,6 +13,7 @@
 #include <memory.h>
 #include <array>
 #include <iostream>
+#include <cstdint>
 
 FTDILinux::FTDILinux(){
 
@@ -95,4 +96,10 @@ std::vector<uint8_t> FTDILinux::readData(){
   }
       
   return data;
+}
+
+void FTDILinux::purgeRxTx() {
+  if (ftdi != nullptr) {
+    ftdi_tcioflush(ftdi);
+  }
 }

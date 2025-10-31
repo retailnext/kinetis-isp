@@ -1,15 +1,21 @@
 # Copyright (c) 2020 Albert Krenz
-# 
+#
 # This code is licensed under BSD + Patent (see LICENSE.txt for full license text)
 
 # SPDX-License-Identifier: BSD-2-Clause-Patent
+
+cmake_minimum_required(VERSION 3.20)
+# Set CMP0167 policy only if it exists (CMake 3.30+)
+if(POLICY CMP0167)
+    cmake_policy(SET CMP0167 NEW)
+endif()
+
 project(nxp-isp)
-cmake_minimum_required(VERSION 3.7)
 
 option(COVERAGE "Enable creation of Unit test coverage data" OFF)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-if(${CMAKE_VERSION} VERSION_LESS "3.9.4") 
+if(${CMAKE_VERSION} VERSION_LESS "3.9.4")
     message("No LTO Support in old CMake")
 else()
   cmake_policy(SET CMP0069 NEW)
@@ -28,6 +34,7 @@ if(${CMAKE_INSTALL_PREFIX} STREQUAL "")
   set(CMAKE_INSTALL_PREFIX "/usr/")
 endif()
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 add_subdirectory(src)
 if(BUILD_TESTING)
   enable_testing()

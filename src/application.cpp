@@ -12,6 +12,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <stdexcept>
+#include <cstdint>
 #include <boost/log/trivial.hpp>
 
 Application::Application(MCU& mcu, FTDI::Interface& ftdi) : mcu(mcu), ftdi(ftdi)
@@ -57,6 +58,10 @@ void Application::enableISPMode(){
   BOOST_LOG_TRIVIAL(info) <<  "Disable CBUS Mode";
   ftdi.disableCBUSMode();
   usleep(10000);
+
+  // Purge any residual data in the buffer
+  ftdi.purgeRxTx();
+  usleep(5000);
 
   const std::vector<uint8_t> unlock_key={0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88};
   BOOST_LOG_TRIVIAL(info) <<  "Send \"Enable ISP Mode\" request to device";
