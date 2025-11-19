@@ -26,7 +26,7 @@ else()
   endif()
 endif()
 
-add_definitions(-DBOOST_LOG_DYN_LINK)
+# add_definitions(-DBOOST_LOG_DYN_LINK)
 find_package(Boost COMPONENTS program_options log log_setup REQUIRED)
 find_package(Threads REQUIRED)
 

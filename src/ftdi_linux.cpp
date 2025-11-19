@@ -100,6 +100,6 @@ std::vector<uint8_t> FTDILinux::readData(){
 
 void FTDILinux::purgeRxTx() {
   if (ftdi != nullptr) {
-    ftdi_tcioflush(ftdi);
+    ftdi_usb_purge_buffers(ftdi);
   }
 }
