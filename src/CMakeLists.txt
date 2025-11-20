@@ -20,7 +20,7 @@ get_target_property(VERSION ${PROJECT_NAME} VERSION)
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${LIBFTDI1_DEFINITIONS} -DVERSION=\"${VERSION}\")
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${LIBFTDI1_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
-target_compile_options(${PROJECT_NAME} PRIVATE -Wno-error=unused-parameter -Wall -Werror -Wextra $<$<CONFIG:DEBUG>:-O0 -g3>)
+target_compile_options(${PROJECT_NAME} PRIVATE -Wno-error=unused-parameter -Wall -Werror -Wextra $<$<CONFIG:DEBUG>:-O0 -g3> -Wno-deprecated-declarations)
 
 # Link all libraries (keep only this one target_link_libraries)
 target_link_libraries(${PROJECT_NAME}
