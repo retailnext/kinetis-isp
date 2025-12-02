@@ -17,7 +17,7 @@ jobs:
       image: debian:12
     steps:
     - name: Checkout code
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       
     - name: Install dependencies
       run: |
@@ -43,7 +43,7 @@ jobs:
     needs: debian-12
     steps:
     - name: Checkout code
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       
     - name: Install dependencies
       run: |
@@ -70,7 +70,7 @@ jobs:
       image: opensuse/tumbleweed
     steps:
     - name: Checkout code
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       
     - name: Install dependencies
       run: |
@@ -96,7 +96,7 @@ jobs:
     needs: opensuse-tumbleweed
     steps:
     - name: Checkout code
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       
     - name: Install dependencies
       run: |
