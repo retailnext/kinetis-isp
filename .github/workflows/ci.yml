@@ -31,7 +31,7 @@ jobs:
         ninja
         
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: debian-12-build
         path: build/
@@ -50,7 +50,7 @@ jobs:
         apt-get update -qq && apt-get install -y cmake ninja-build g++ pkg-config libgtest-dev libgmock-dev libftdi1-dev libboost-dev libboost-program-options-dev libboost-log-dev
         
     - name: Download build artifacts
-      uses: actions/download-artifact@v5
+      uses: actions/download-artifact@v7
       with:
         name: debian-12-build
         path: build/
@@ -84,7 +84,7 @@ jobs:
         ninja
         
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: opensuse-tumbleweed-build
         path: build/
@@ -103,7 +103,7 @@ jobs:
         zypper refresh && zypper install --no-confirm boost-devel ninja cmake gcc-c++ pkg-config gmock gtest libftdi1-devel libboost_program_options-devel libboost_log-devel libboost_thread-devel
         
     - name: Download build artifacts
-      uses: actions/download-artifact@v5
+      uses: actions/download-artifact@v7
       with:
         name: opensuse-tumbleweed-build
         path: build/
