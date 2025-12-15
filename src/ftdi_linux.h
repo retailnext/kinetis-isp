@@ -34,5 +34,7 @@ public:
 
 private:
   struct ftdi_context * ftdi = nullptr;
+  int vid = 0;
+  int pid = 0;
 };
 #endif /* _FTDI_HPP_ */

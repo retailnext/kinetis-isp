@@ -9,6 +9,7 @@
 #include "ftdi_linux.h"
 
 #include <ftdi.h>
+#include <libusb-1.0/libusb.h>
 #include <stdexcept>
 #include <memory.h>
 #include <array>
@@ -26,11 +27,29 @@ FTDILinux::FTDILinux(const int vid, const int pid){
 FTDILinux::~FTDILinux(){
   if(ftdi != nullptr){
     ftdi_usb_close(ftdi);
+    
+    // Explicitly reattach kernel driver to restore /dev/ttyUSB* device node
+    // This ensures the device is immediately available after program exit
+    if (vid != 0 && pid != 0) {
+      libusb_context* ctx = nullptr;
+      if (libusb_init(&ctx) == 0) {
+        libusb_device_handle* handle = libusb_open_device_with_vid_pid(ctx, vid, pid);
+        if (handle != nullptr) {
+          libusb_attach_kernel_driver(handle, 0); // Reattach kernel driver for interface 0
+          libusb_close(handle);
+        }
+        libusb_exit(ctx);
+      }
+    }
+    
     ftdi_free(ftdi);
   }
 }
 
 void FTDILinux::open(const int vid, const int pid){
+  this->vid = vid;
+  this->pid = pid;
+  
   ftdi = ftdi_new();
   if(ftdi == nullptr){
     throw std::runtime_error("Could not create new FTDI instance");
@@ -40,6 +59,8 @@ void FTDILinux::open(const int vid, const int pid){
   if(ftdi_usb_open(ftdi, vid, pid) < 0) {
     ftdi_free(ftdi);
     ftdi=nullptr;
+    this->vid = 0;
+    this->pid = 0;
     throw std::runtime_error("Could not open USB Device");
   }
 
