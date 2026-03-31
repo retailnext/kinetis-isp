@@ -31,7 +31,7 @@ debian:9:
     - ninja
 
 debian:10:  
-  image: "debian:10"
+  image: "debian:buster-20240612"
   <<: *debian_install
   stage: build
   script:
@@ -44,7 +44,7 @@ debian:10:
       - build/
 
 unit_test:debian-10:
-  image: "debian:10"
+  image: "debian:buster-20240612"
   <<: *debian_install
   <<: *debian_utest
   dependencies:
