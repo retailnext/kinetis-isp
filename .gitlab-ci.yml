@@ -20,7 +20,7 @@ include:
     - ctest --output-on-failure
 
 debian:9:  
-  image: "debian:9"
+  image: "debian:stretch-20220622"
   before_script:
     - apt-get update -qq && apt-get install -y cmake ninja-build g++ libftdi1-dev libboost-dev libboost-program-options-dev libboost-log-dev
   stage: build
