@@ -20,7 +20,7 @@ include:
     - ctest --output-on-failure
 
 debian:9:  
-  image: "debian:9"
+  image: "debian:13"
   before_script:
     - apt-get update -qq && apt-get install -y cmake ninja-build g++ libftdi1-dev libboost-dev libboost-program-options-dev libboost-log-dev
   stage: build
@@ -31,7 +31,7 @@ debian:9:
     - ninja
 
 debian:10:  
-  image: "debian:10"
+  image: "debian:13"
   <<: *debian_install
   stage: build
   script:
@@ -44,7 +44,7 @@ debian:10:
       - build/
 
 unit_test:debian-10:
-  image: "debian:10"
+  image: "debian:13"
   <<: *debian_install
   <<: *debian_utest
   dependencies:
